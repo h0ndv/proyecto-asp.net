@@ -10,22 +10,22 @@ using MVC.Models;
 
 namespace MVC.Controllers
 {
-    public class ClientesController : Controller
+    public class UsuariosController : Controller
     {
         private readonly MVCContext _context;
 
-        public ClientesController(MVCContext context)
+        public UsuariosController(MVCContext context)
         {
             _context = context;
         }
 
-        // GET: Clientes
+        // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cliente.ToListAsync());
+            return View(await _context.Usuarios.ToListAsync());
         }
 
-        // GET: Clientes/Details/5
+        // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace MVC.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Cliente
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (cliente == null)
+            var usuarios = await _context.Usuarios
+                .FirstOrDefaultAsync(m => m.IdUsuario == id);
+            if (usuarios == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(usuarios);
         }
 
-        // GET: Clientes/Create
+        // GET: Usuarios/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Clientes/Create
+        // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUsuario,Usuario,Apellido,Telefono")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("IdUsuario,IdCargo,Usuario,Contrasena")] Usuarios usuarios)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cliente);
+                _context.Add(usuarios);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(usuarios);
         }
 
-        // GET: Clientes/Edit/5
+        // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace MVC.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Cliente.FindAsync(id);
-            if (cliente == null)
+            var usuarios = await _context.Usuarios.FindAsync(id);
+            if (usuarios == null)
             {
                 return NotFound();
             }
-            return View(cliente);
+            return View(usuarios);
         }
 
-        // POST: Clientes/Edit/5
+        // POST: Usuarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,Usuario,Apellido,Telefono")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,IdCargo,Usuario,Contrasena")] Usuarios usuarios)
         {
-            if (id != cliente.Id)
+            if (id != usuarios.IdUsuario)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace MVC.Controllers
             {
                 try
                 {
-                    _context.Update(cliente);
+                    _context.Update(usuarios);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClienteExists(cliente.Id))
+                    if (!UsuariosExists(usuarios.IdUsuario))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace MVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(usuarios);
         }
 
-        // GET: Clientes/Delete/5
+        // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +124,34 @@ namespace MVC.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Cliente
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (cliente == null)
+            var usuarios = await _context.Usuarios
+                .FirstOrDefaultAsync(m => m.IdUsuario == id);
+            if (usuarios == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(usuarios);
         }
 
-        // POST: Clientes/Delete/5
+        // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cliente = await _context.Cliente.FindAsync(id);
-            if (cliente != null)
+            var usuarios = await _context.Usuarios.FindAsync(id);
+            if (usuarios != null)
             {
-                _context.Cliente.Remove(cliente);
+                _context.Usuarios.Remove(usuarios);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClienteExists(int id)
+        private bool UsuariosExists(int id)
         {
-            return _context.Cliente.Any(e => e.Id == id);
+            return _context.Usuarios.Any(e => e.IdUsuario == id);
         }
     }
 }

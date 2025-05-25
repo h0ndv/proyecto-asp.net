@@ -15,5 +15,11 @@ namespace MVC.Data
         }
 
         public DbSet<MVC.Models.Cliente> Cliente { get; set; } = default!;
+        public DbSet<MVC.Models.Usuarios> Usuarios { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Usuarios>().HasKey(u => u.IdUsuario);
+        }
     }
 }

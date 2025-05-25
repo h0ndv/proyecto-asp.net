@@ -2,21 +2,19 @@
 {
     public class Usuarios
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-
-        public string Password { get; set; }
-
-        public int Cargo { get; set; }
+        public int IdUsuario { get; set; }
+        public int IdCargo { get; set; }
+        public string Usuario { get; set; }
+        public string Contrasena { get; set; }
 
         public Usuarios() { }
 
-        public Usuarios(int id, string nombre, string password, int cargo)
+        public Usuarios(int idUsuario, int idCargo, string usuario, string contrasena)
         {
-            Id = id;
-            Nombre = nombre;
-            Password = password;
-            Cargo = cargo;
+            IdUsuario = idUsuario;
+            IdCargo = idCargo;
+            Usuario = usuario;
+            Contrasena = contrasena;
         }
     }
 }
