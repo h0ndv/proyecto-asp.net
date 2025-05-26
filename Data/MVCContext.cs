@@ -16,10 +16,12 @@ namespace MVC.Data
 
         public DbSet<MVC.Models.Cliente> Cliente { get; set; } = default!;
         public DbSet<MVC.Models.Usuarios> Usuarios { get; set; } = default!;
+        public DbSet<MVC.Models.Productos> Productos { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Usuarios>().HasKey(u => u.IdUsuario);
+            modelBuilder.Entity<Productos>().HasKey(p => p.IdProducto);
         }
     }
 }
