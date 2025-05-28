@@ -62,6 +62,16 @@ CREATE TABLE DetalleVentas (
   Total INT NOT NULL
 );
 
+-- Tabla perifericos
+CREATE TABLE Perifericos (
+    IdPeriferico INT IDENTITY(1,1) PRIMARY KEY,
+    NombrePeriferico VARCHAR(100) NOT NULL,
+    IpAdress VARCHAR(50) NOT NULL,
+    MacAdress VARCHAR(50) NOT NULL,
+    Estado BIT NOT NULL
+);
+
+
 -- CLAVES FORANEAS
 
 ALTER TABLE Productos
@@ -112,3 +122,8 @@ INSERT INTO Productos (IdCategoria, Nombre, Cantidad, Precio) VALUES
 (3, 'Corsair Vengeance 16GB DDR4', 20, 7550),
 (4, 'EVGA 750W 80 Plus Gold', 0, 12000),
 (5, 'NZXT H510', 15, 9999);
+
+INSERT INTO Perifericos (NombrePeriferico, IpAdress, MacAdress, Estado) VALUES
+('Impresora HP', '192.168.1.100', '00:1B:44:11:3A:B7', 0),
+('Impresora Epson', '192.168.1.101', '00:1A:2B:3C:4D:5E', 0),
+('Impresora Cannon', '192.168.1.102', 'E4:8D:8C:B7:C9:1A', 0);
