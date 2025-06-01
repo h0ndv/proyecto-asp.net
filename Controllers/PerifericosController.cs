@@ -19,9 +19,53 @@ namespace MVC.Controllers
             _context = context;
         }
 
+        // Mostrar perifericos en comboBox
+        [HttpPost]
+        public IActionResult comboxBoxPerifericos(int IdPeriferico)
+        {
+            // Recargar el comboBox con los datos de perifericos
+            ViewBag.IdPeriferico = new SelectList(
+                _context.Perifericos.ToList(),
+                "IdPeriferico",
+                "NombrePeriferico",
+                IdPeriferico
+            );
+
+            // Obtener el periferico seleccionado para mostrar sus detalles
+            var perifericoSeleccionado = _context.Perifericos.FirstOrDefault(p => p.IdPeriferico == IdPeriferico);
+            ViewBag.PerifericoSeleccionado = perifericoSeleccionado;
+
+            // Reenviar la vista Index con los datos
+            var perifericos = _context.Perifericos.ToList();
+            return View("Index", perifericos);
+        }
+
+        [HttpPost]
+        public IActionResult CambiarEstado(int IdPeriferico, bool NuevoEstado)
+        {
+            var periferico = _context.Perifericos.FirstOrDefault(p => p.IdPeriferico == IdPeriferico);
+            if (periferico != null)
+            {
+                periferico.Estado = NuevoEstado;
+                _context.SaveChanges();
+            }
+
+            // Recargar combo y vista
+            ViewBag.IdPeriferico = new SelectList(_context.Perifericos.ToList(), "IdPeriferico", "NombrePeriferico", IdPeriferico);
+            ViewBag.PerifericoSeleccionado = periferico;
+
+            var perifericos = _context.Perifericos.ToList();
+            return View("Index", perifericos);
+        }
+
         // GET: Perifericos
         public async Task<IActionResult> Index()
         {
+            ViewBag.IdPeriferico = new SelectList(
+                    await _context.Perifericos.ToListAsync(),
+                    "IdPeriferico",
+                    "NombrePeriferico"
+                );
             return View(await _context.Perifericos.ToListAsync());
         }
 

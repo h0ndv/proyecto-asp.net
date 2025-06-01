@@ -52,3 +52,60 @@
 }
     </tbody>
 </table>
+
+<form asp-action="comboxBoxPerifericos" method="post" id="formPerifericos">
+    <div class="form-group">
+        <label for="IdPeriferico">Selecciona un periferico:</label>
+        @Html.DropDownList("IdPeriferico", ViewBag.IdPeriferico as SelectList, "-- Selecciona --", new { @class = "form-control", @id = "IdPeriferico" })
+    </div>
+</form>
+
+@if (ViewBag.PerifericoSeleccionado != null)
+{
+    var p = ViewBag.PerifericoSeleccionado;
+    <div class="alert alert-info mt-3">
+        <h5>@p.NombrePeriferico</h5>
+        <div>
+            <strong>Estado actual:</strong> @(p.Estado ? "Conectado" : "Desconectado")<br />
+            <strong>IP:</strong> @p.IpAdress<br />
+            <strong>MAC:</strong> @p.MacAdress<br />
+        </div>
+
+        <form asp-action="CambiarEstado" method="post" id="formEstado">
+            <input type="hidden" name="IdPeriferico" value="@p.IdPeriferico" />
+            <input type="hidden" name="NuevoEstado" id="NuevoEstado" />
+
+            <div class="progress mb-2" style="height: 20px; display: none;" id="barraCarga">
+                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                     role="progressbar" style="width: 100%">
+                    Conectando...
+                </div>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-success" onclick="cambiarEstado(true)">Conectar</button>
+                <button type="button" class="btn btn-danger" onclick="cambiarEstado(false)">Desconectar</button>
+            </div>
+
+        </form>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        function cambiarEstado(estado) {
+            document.getElementById("NuevoEstado").value = estado;
+            document.getElementById("barraCarga").style.display = "block";
+
+            setTimeout(function () {
+                document.getElementById("formEstado").submit();
+            }, 2000); // 2 segundos de simulacion
+        }
+    </script>
+
+    <script>
+        document.getElementById('IdPeriferico').addEventListener('change', function () {
+            document.getElementById('formPerifericos').submit();
+        });
+    </script>
+}
