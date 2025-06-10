@@ -20,7 +20,13 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" asp-controller="Clientes" asp-action="Index">Clientes</a>
                     </li>
-                </ul
+                </ul>
+                <h2 class="p-3">Ventas</h2>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-controller="Ventas" asp-action="Index">Ventas</a>
+                    </li>
+                </ul>
                 <h2 class="p-3">Configuracion</h2>
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -34,5 +40,6 @@
             </div>
         </div>
     </div>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

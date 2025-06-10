@@ -1,0 +1,36 @@
+@model MVC.Models.Ventas
+@{
+    ViewData["Title"] = "Nueva Venta";
+    var productos = ViewBag.Productos as List<MVC.Models.Productos>;
+}
+
+<h2>Nueva Venta</h2>
+<form asp-action="Create" method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Descuento</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < (productos?.Count ?? 0); i++)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" name="IdProducto" value="@productos[i].IdProducto" />
+                        @productos[i].Nombre
+                    </td>
+                    <td>
+                        <input type="number" name="Cantidad" value="1" min="1" class="form-control" />
+                    </td>
+                    <td>
+                        <input type="number" name="Descuento" value="0" min="0" class="form-control" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Procesar Venta</button>
+</form>

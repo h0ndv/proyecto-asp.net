@@ -1,0 +1,32 @@
+@model IEnumerable<MVC.Models.Ventas>
+@{
+    ViewData["Title"] = "Ventas";
+}
+
+<h2>Ventas</h2>
+<p>
+    <a asp-action="Create" class="btn btn-success">Nueva Venta</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var venta in Model)
+        {
+            <tr>
+                <td>@venta.IdVenta</td>
+                <td>@venta.FechaVenta</td>
+                <td>@venta.TotalVenta.ToString("C")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@venta.IdVenta" class="btn btn-info btn-sm">Recibo</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

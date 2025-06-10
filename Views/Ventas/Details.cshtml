@@ -1,0 +1,37 @@
+@model MVC.Models.Ventas
+@{
+    ViewData["Title"] = "Recibo de Venta";
+}
+
+<h2>Recibo de Venta</h2>
+<p><strong>Fecha:</strong> @Model.FechaVenta</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Descuento</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model.Detalles)
+        {
+            <tr>
+                <td>@d.Producto?.Nombre</td>
+                <td>@d.Cantidad</td>
+                <td>@d.PrecioUnitario.ToString("C")</td>
+                <td>@d.Descuento.ToString("C")</td>
+                <td>@d.Subtotal.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="text-end"><strong>Total:</strong></td>
+            <td><strong>@Model.TotalVenta.ToString("C")</strong></td>
+        </tr>
+    </tfoot>
+</table>
+<a asp-action="Index" class="btn btn-secondary">Volver a Ventas</a>
